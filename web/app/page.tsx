@@ -39,7 +39,10 @@ export default function Page() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-16 space-y-16">
         {/* Header */}
         <header className="space-y-2 pt-8">
-          <div className="text-5xl font-bold tracking-tight font-mono">
+          <div
+            className="text-5xl font-bold tracking-tight"
+            style={{ fontFamily: "'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif" }}
+          >
             Insight<span className="text-[#F2A93B]">well</span>
           </div>
           <p className="text-lg text-[#878C94] max-w-2xl">
