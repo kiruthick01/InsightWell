@@ -40,8 +40,11 @@ export default function Page() {
         {/* Header */}
         <header className="space-y-2 pt-8">
           <div
-            className="text-5xl font-bold tracking-tight"
-            style={{ fontFamily: "'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif" }}
+            className="font-bold tracking-tight"
+            style={{
+              fontFamily: "'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif",
+              fontSize: "clamp(2.5rem, 10vw, 8rem)",
+            }}
           >
             Insight<span className="text-[#F2A93B]">well</span>
           </div>
