@@ -1,0 +1,6 @@
+pipeline/.venv/
+pipeline/__pycache__/
+pipeline/data/
+pipeline/output/
+*.pyc
+.DS_Store
