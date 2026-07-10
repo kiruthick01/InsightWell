@@ -1,0 +1,73 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: 'Segoe UI', 'Helvetica Neue', system-ui, sans-serif;
+  --font-mono: 'Menlo', 'Monaco', 'Courier New', monospace;
+  --color-background: #0B0D10;
+  --color-foreground: #F2F3F0;
+  --color-card: #15171C;
+  --color-card-foreground: #F2F3F0;
+  --color-primary: #F2A93B;
+  --color-primary-foreground: #14161A;
+  --color-secondary: #35D9C6;
+  --color-secondary-foreground: #14161A;
+  --color-muted: #878C94;
+  --color-muted-foreground: #878C94;
+  --color-accent: #35D9C6;
+  --color-accent-foreground: #14161A;
+  --color-destructive: #EF4444;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-input: rgba(255, 255, 255, 0.12);
+  --color-ring: #35D9C6;
+  --radius: 16px;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Font utilities */
+  .font-mono-label {
+    @apply font-mono text-xs font-semibold tracking-widest uppercase;
+  }
+
+  /* Card styles */
+  .card-panel {
+    @apply rounded-2xl border border-white/8 bg-[#15171C] backdrop-blur-sm;
+  }
+
+  .card-panel-raised {
+    @apply rounded-2xl border border-white/8 bg-[#1B1E24] backdrop-blur-sm;
+  }
+
+  .card-inverted {
+    @apply rounded-2xl border border-white/8 bg-[#F4EFE4] text-[#14161A] backdrop-blur-sm;
+  }
+
+  /* Motion animation utilities */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}

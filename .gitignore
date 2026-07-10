@@ -4,3 +4,4 @@ pipeline/data/
 pipeline/output/
 *.pyc
 .DS_Store
+.claude/

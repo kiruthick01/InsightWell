@@ -41,6 +41,7 @@ SENTIMENT_MODEL_NAME = "cardiffnlp/twitter-roberta-base-sentiment-latest"
 TARGET_NUM_TOPICS = 15
 TOP_N_SAMPLES = 5
 SAMPLE_TRUNCATE_LEN = 200
+TREND_BINS = 14
 
 
 # --------------------------------------------------------------------------
@@ -232,26 +233,50 @@ def slugify(label: str) -> str:
     return slug or "topic"
 
 
-def top_representative_samples(
-    embeddings: np.ndarray, doc_indices: np.ndarray, docs: list[str], k: int = TOP_N_SAMPLES
-) -> list[str]:
-    """Docs whose embedding is closest to the topic centroid (Euclidean)."""
+def top_representative_indices(
+    embeddings: np.ndarray, doc_indices: np.ndarray, k: int = TOP_N_SAMPLES
+) -> list[int]:
+    """Indices of docs whose embedding is closest to the topic centroid (Euclidean)."""
     if len(doc_indices) == 0:
         return []
     topic_embeddings = embeddings[doc_indices]
     centroid = topic_embeddings.mean(axis=0)
     dists = np.linalg.norm(topic_embeddings - centroid, axis=1)
     order = np.argsort(dists)[:k]
-    chosen = [doc_indices[i] for i in order]
-    return [docs[i][:SAMPLE_TRUNCATE_LEN] for i in chosen]
+    return [int(doc_indices[i]) for i in order]
+
+
+def bucket_by_time(
+    timestamps: pd.Series, global_min: pd.Timestamp, global_max: pd.Timestamp, n_bins: int = TREND_BINS
+) -> list[int]:
+    """Bucket real timestamps into n_bins equal-width bins across the shared
+    [global_min, global_max] range, so every category's trend array lines up
+    on the same time axis and is directly comparable."""
+    counts = [0] * n_bins
+    span = (global_max - global_min).total_seconds()
+    if span <= 0:
+        counts[0] = len(timestamps)
+        return counts
+    for ts in timestamps:
+        frac = (ts - global_min).total_seconds() / span
+        idx = min(int(frac * n_bins), n_bins - 1)
+        counts[idx] += 1
+    return counts
 
 
 def build_categories(
-    topic_model, topics: list[int], docs: list[str], embeddings: np.ndarray, sentiments: list[str]
+    topic_model,
+    topics: list[int],
+    docs: list[str],
+    embeddings: np.ndarray,
+    sentiments: list[str],
+    dates: pd.Series,
+    confidences: np.ndarray,
 ) -> list[dict]:
     topics_arr = np.array(topics)
     total = len(docs)
     topic_ids = sorted(set(topics))
+    global_min, global_max = dates.min(), dates.max()
 
     raw_categories = []
     for topic_id in topic_ids:
@@ -272,7 +297,39 @@ def build_categories(
         neu = sum(1 for s in topic_sentiments if s == "neutral") / n
         neg = sum(1 for s in topic_sentiments if s == "negative") / n
 
-        samples = top_representative_samples(embeddings, doc_indices, docs)
+        topic_dates = dates.iloc[doc_indices]
+        trend = bucket_by_time(topic_dates, global_min, global_max)
+
+        # confidence_score: mean ground-truth label confidence (dataset's own
+        # airline_sentiment_confidence) for this topic's tweets, 0-100 scale.
+        # Real signal, not model-derived — reflects how confidently humans
+        # agreed on the original sentiment label for this cluster of tweets.
+        confidence_score = round(100 * float(confidences[doc_indices].mean()), 2) if n else 0.0
+
+        # trend_score: share of this topic's volume that falls in the second
+        # half of the shared time range, 0-100. 50 = evenly spread, >50 =
+        # recent-heavy (rising), <50 = historical-heavy (fading). Real,
+        # derived from actual tweet timestamps, not a synthetic slope fit.
+        half = TREND_BINS // 2
+        second_half_volume = sum(trend[half:])
+        trend_score = round(100 * second_half_volume / volume, 2) if volume else 0.0
+
+        # weekday distribution (Mon=0..Sun=6), real counts — feeds the
+        # top-level `heatmap` matrix for whichever categories end up in the
+        # top 8 by volume (selected after this loop).
+        weekday_counts = [0] * 7
+        for ts in topic_dates:
+            weekday_counts[ts.weekday()] += 1
+
+        sample_idx = top_representative_indices(embeddings, doc_indices)
+        samples = [
+            {
+                "text": docs[i][:SAMPLE_TRUNCATE_LEN],
+                "created_at": dates.iloc[i].isoformat(),
+                "sentiment": sentiments[i],
+            }
+            for i in sample_idx
+        ]
 
         raw_categories.append(
             {
@@ -291,6 +348,14 @@ def build_categories(
                     "negative": round(100 * neg, 2),
                 },
                 "_negative_ratio": neg,  # 0-1 fraction, used for severity math below
+                "_weekday_counts": weekday_counts,  # temp, consumed by heatmap builder
+                "radar": {
+                    # volume_score filled in below once normalized volume is known
+                    "negative_score": round(100 * neg, 2),
+                    "trend_score": trend_score,
+                    "confidence_score": confidence_score,
+                },
+                "trend": trend,
                 "sample_complaints": samples,
             }
         )
@@ -324,6 +389,14 @@ def build_categories(
 
     for cat, norm_vol in zip(raw_categories, norm_volumes):
         cat["severity_score"] = round(float(norm_vol * cat["_negative_ratio"]), 4)
+        cat["radar"]["volume_score"] = round(float(norm_vol * 100), 2)
+        # reorder so volume_score reads first, matching the other radar axes
+        cat["radar"] = {
+            "volume_score": cat["radar"]["volume_score"],
+            "negative_score": cat["radar"]["negative_score"],
+            "trend_score": cat["radar"]["trend_score"],
+            "confidence_score": cat["radar"]["confidence_score"],
+        }
         del cat["_negative_ratio"]
 
     raw_categories.sort(key=lambda c: c["severity_score"], reverse=True)
@@ -332,6 +405,41 @@ def build_categories(
         del cat["topic_id"]
 
     return raw_categories
+
+
+def build_heatmap(categories: list[dict]) -> dict:
+    """Top-level day-of-week x category complaint density matrix, built from
+    the real weekday distribution of each category's tweets. Uses the top 8
+    categories by volume (matches the dashboard's top-8 heatmap subset)."""
+    top8 = sorted(categories, key=lambda c: c["volume"], reverse=True)[:8]
+    return {
+        "days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        "categories": [c["label"] for c in top8],
+        "matrix": [c["_weekday_counts"] for c in top8],
+    }
+
+
+def build_timeseries(dates: pd.Series, sentiments: list[str]) -> list[dict]:
+    """Real daily positive/neutral/negative counts across the full dataset's
+    actual date range (however many calendar days it spans)."""
+    day = dates.dt.strftime("%b %-d")
+    df = pd.DataFrame({"day": day, "sentiment": sentiments})
+    order = dates.dt.date.drop_duplicates().sort_values()
+    day_order = pd.to_datetime(order).dt.strftime("%b %-d").tolist()
+    counts = df.groupby(["day", "sentiment"]).size().unstack(fill_value=0)
+    for col in ("positive", "neutral", "negative"):
+        if col not in counts.columns:
+            counts[col] = 0
+    counts = counts.reindex(day_order)
+    return [
+        {
+            "date": date,
+            "positive": int(row["positive"]),
+            "neutral": int(row["neutral"]),
+            "negative": int(row["negative"]),
+        }
+        for date, row in counts.iterrows()
+    ]
 
 
 # --------------------------------------------------------------------------
@@ -358,9 +466,12 @@ def main() -> None:
     df["text_clean"] = df["text"].apply(clean_text)
     df = df[df["text_clean"].str.len() > 0].reset_index(drop=True)
     df["airline_sentiment"] = df["airline_sentiment"].str.lower().str.strip()
+    df["tweet_created_dt"] = pd.to_datetime(df["tweet_created"])
 
     docs = df["text_clean"].tolist()
     ground_truth = df["airline_sentiment"].tolist()
+    dates = df["tweet_created_dt"]
+    confidences = df["airline_sentiment_confidence"].to_numpy()
     total = len(docs)
     print(f"[2/6] {total} cleaned complaints ready for modeling.")
 
@@ -373,8 +484,14 @@ def main() -> None:
     print(f"[4/6] Sentiment accuracy vs. ground truth: {accuracy:.4f} ({correct}/{total})")
 
     print("[5/6] Aggregating per-topic metrics ...")
-    categories = build_categories(topic_model, topics, docs, embeddings, sentiments)
+    categories = build_categories(topic_model, topics, docs, embeddings, sentiments, dates, confidences)
     num_topics = len(categories)
+
+    heatmap = build_heatmap(categories)
+    for cat in categories:
+        del cat["_weekday_counts"]
+
+    timeseries = build_timeseries(dates, sentiments)
 
     overall_pos = 100 * sum(1 for s in sentiments if s == "positive") / total
     overall_neu = 100 * sum(1 for s in sentiments if s == "neutral") / total
@@ -397,6 +514,8 @@ def main() -> None:
             "overall_neutral_pct": round(overall_neu, 2),
             "overall_positive_pct": round(overall_pos, 2),
         },
+        "timeseries": timeseries,
+        "heatmap": heatmap,
         "categories": categories,
     }
 

@@ -1,0 +1,1242 @@
+{
+  "generated_at": "2026-07-10T19:11:20.786244+00:00",
+  "methodology": {
+    "dataset": "Twitter US Airline Sentiment (public proxy dataset)",
+    "total_complaints_analyzed": 14640,
+    "topic_model": "BERTopic (all-MiniLM-L6-v2 embeddings)",
+    "num_topics": 15,
+    "sentiment_model": "cardiffnlp/twitter-roberta-base-sentiment-latest",
+    "sentiment_accuracy_vs_ground_truth": 0.7719,
+    "outlier_handling": "Outlier topic (-1) kept as its own 'Other / Uncategorized' category rather than merged via reduce_outliers(), so volume/severity of real topics isn't inflated by forced reassignment."
+  },
+  "overview": {
+    "total_volume": 14640,
+    "overall_negative_pct": 51.95,
+    "overall_neutral_pct": 26.82,
+    "overall_positive_pct": 21.23
+  },
+  "timeseries": [
+    {
+      "date": "Feb 16",
+      "positive": 0,
+      "neutral": 3,
+      "negative": 1
+    },
+    {
+      "date": "Feb 17",
+      "positive": 334,
+      "neutral": 387,
+      "negative": 687
+    },
+    {
+      "date": "Feb 18",
+      "positive": 343,
+      "neutral": 403,
+      "negative": 598
+    },
+    {
+      "date": "Feb 19",
+      "positive": 380,
+      "neutral": 367,
+      "negative": 629
+    },
+    {
+      "date": "Feb 20",
+      "positive": 394,
+      "neutral": 419,
+      "negative": 687
+    },
+    {
+      "date": "Feb 21",
+      "positive": 279,
+      "neutral": 408,
+      "negative": 870
+    },
+    {
+      "date": "Feb 22",
+      "positive": 463,
+      "neutral": 721,
+      "negative": 1895
+    },
+    {
+      "date": "Feb 23",
+      "positive": 636,
+      "neutral": 829,
+      "negative": 1563
+    },
+    {
+      "date": "Feb 24",
+      "positive": 279,
+      "neutral": 389,
+      "negative": 676
+    }
+  ],
+  "heatmap": {
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun"
+    ],
+    "categories": [
+      "Customer Service",
+      "Other / Uncategorized",
+      "Positive Feedback",
+      "Positive Feedback (Thank)",
+      "Fleek Fleet fleek",
+      "Dm Follow",
+      "Kids Old",
+      "Ceo Wall"
+    ],
+    "matrix": [
+      [
+        1332,
+        1232,
+        679,
+        648,
+        719,
+        712,
+        1499
+      ],
+      [
+        1285,
+        1198,
+        520,
+        585,
+        615,
+        698,
+        1330
+      ],
+      [
+        93,
+        100,
+        52,
+        47,
+        55,
+        56,
+        94
+      ],
+      [
+        68,
+        85,
+        38,
+        31,
+        37,
+        23,
+        39
+      ],
+      [
+        148,
+        8,
+        1,
+        2,
+        3,
+        2,
+        5
+      ],
+      [
+        36,
+        28,
+        16,
+        16,
+        24,
+        18,
+        19
+      ],
+      [
+        18,
+        26,
+        3,
+        4,
+        7,
+        10,
+        31
+      ],
+      [
+        5,
+        14,
+        12,
+        8,
+        20,
+        9,
+        2
+      ]
+    ]
+  },
+  "categories": [
+    {
+      "id": "customer-service",
+      "label": "Customer Service",
+      "keywords": [
+        "flight",
+        "bag",
+        "service",
+        "cancelled",
+        "customer",
+        "just",
+        "help",
+        "thanks"
+      ],
+      "volume": 6821,
+      "volume_pct": 46.59,
+      "sentiment": {
+        "positive": 17.55,
+        "neutral": 26.52,
+        "negative": 55.93
+      },
+      "radar": {
+        "volume_score": 100.0,
+        "negative_score": 55.93,
+        "trend_score": 62.48,
+        "confidence_score": 90.87
+      },
+      "trend": [
+        249,
+        415,
+        387,
+        296,
+        412,
+        254,
+        546,
+        201,
+        523,
+        370,
+        1141,
+        633,
+        794,
+        600
+      ],
+      "sample_complaints": [
+        {
+          "text": "Look at that. The flight I have been trying to book for 3 days is gone. I guess someone got through. Thanks! Keep up the #Failing",
+          "created_at": "2015-02-21T09:38:58-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "your customer service today was deplorable. There were plenty of ways u could have gotten us on that flight. #badcustomerservice",
+          "created_at": "2015-02-24T04:27:49-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "your customer service stinks. Trying to book a flight for hours now and keep getting hung up on. #usairwayssucks",
+          "created_at": "2015-02-17T12:04:52-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "I will be calling customer service. 2 delayed flights today now, luggage misplaced, a disaster across the board.",
+          "created_at": "2015-02-20T08:31:29-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "your customer service is terrible! Stood inline 3 hours no flights and 4 hours Late Flightr still no bag#disgutedindenver",
+          "created_at": "2015-02-23T16:32:42-08:00",
+          "sentiment": "negative"
+        }
+      ],
+      "severity_score": 0.5593,
+      "rank": 1
+    },
+    {
+      "id": "other-uncategorized",
+      "label": "Other / Uncategorized",
+      "keywords": [],
+      "volume": 6231,
+      "volume_pct": 42.56,
+      "sentiment": {
+        "positive": 18.78,
+        "neutral": 26.14,
+        "negative": 55.08
+      },
+      "radar": {
+        "volume_score": 91.33,
+        "negative_score": 55.08,
+        "trend_score": 65.24,
+        "confidence_score": 90.22
+      },
+      "trend": [
+        254,
+        345,
+        315,
+        214,
+        365,
+        233,
+        440,
+        226,
+        480,
+        353,
+        1033,
+        564,
+        784,
+        625
+      ],
+      "sample_complaints": [
+        {
+          "text": "thanks for delaying our flight for an hour, missing our connecting flight and terrible customer service. #neveragain #vacation",
+          "created_at": "2015-02-20T08:13:10-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "can a real person help me here? This customer service is poor. I'm at the mercy of someone since the flights are disappearing.",
+          "created_at": "2015-02-21T21:41:33-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "you have the worst service, you Cancelled Flightled all your flights FLL to PHL all flights flew. Stuck in FL 3 days. #done",
+          "created_at": "2015-02-21T19:19:25-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "I keep calling your help line (800) 428-4322 and it keeps saying they are too busy to help & to call back Late Flightr. FOR A WEEK NOW!",
+          "created_at": "2015-02-20T12:59:59-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "! THE WORST in customer service. ! Calling for over a month to book a flight! #poorcustomerservice #usairwaysfflyer",
+          "created_at": "2015-02-21T08:11:24-08:00",
+          "sentiment": "negative"
+        }
+      ],
+      "severity_score": 0.5031,
+      "rank": 2
+    },
+    {
+      "id": "positive-feedback",
+      "label": "Positive Feedback",
+      "keywords": [
+        "guys",
+        "love",
+        "thank",
+        "thanks",
+        "home",
+        "tv",
+        "rock",
+        "music"
+      ],
+      "volume": 497,
+      "volume_pct": 3.39,
+      "sentiment": {
+        "positive": 59.56,
+        "neutral": 19.52,
+        "negative": 20.93
+      },
+      "radar": {
+        "volume_score": 7.12,
+        "negative_score": 20.93,
+        "trend_score": 58.75,
+        "confidence_score": 87.52
+      },
+      "trend": [
+        15,
+        43,
+        28,
+        25,
+        29,
+        19,
+        46,
+        10,
+        41,
+        23,
+        77,
+        26,
+        73,
+        42
+      ],
+      "sample_complaints": [
+        {
+          "text": "you guys rock!!",
+          "created_at": "2015-02-20T07:43:16-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "you guys rock!",
+          "created_at": "2015-02-22T11:34:57-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "thank you! \u2764\ufe0f\u2764\ufe0f\u2764\ufe0f you guys!",
+          "created_at": "2015-02-19T14:02:12-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "Awesome! #bestairlineever",
+          "created_at": "2015-02-22T11:30:29-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "thanks :)",
+          "created_at": "2015-02-18T07:41:17-08:00",
+          "sentiment": "positive"
+        }
+      ],
+      "severity_score": 0.0149,
+      "rank": 3
+    },
+    {
+      "id": "kids-old",
+      "label": "Kids Old",
+      "keywords": [
+        "kids",
+        "old",
+        "wheelchair",
+        "child",
+        "traveling",
+        "stroller",
+        "sit",
+        "year old"
+      ],
+      "volume": 99,
+      "volume_pct": 0.68,
+      "sentiment": {
+        "positive": 1.01,
+        "neutral": 46.46,
+        "negative": 52.53
+      },
+      "radar": {
+        "volume_score": 1.28,
+        "negative_score": 52.53,
+        "trend_score": 78.79,
+        "confidence_score": 88.98
+      },
+      "trend": [
+        4,
+        7,
+        2,
+        1,
+        3,
+        1,
+        3,
+        4,
+        8,
+        5,
+        28,
+        5,
+        13,
+        15
+      ],
+      "sample_complaints": [
+        {
+          "text": "never had an airline refuse to help sit parents with tiny kids. But this guy is willing to do it. #JetBlue",
+          "created_at": "2015-02-22T14:16:44-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "why don't you allow families with small children to board first anymore? Our next flight will be on another airline...",
+          "created_at": "2015-02-21T23:17:56-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "being told by this guy that he will not help us sit next to our 5 and 8 year old on the flight. #jetblue",
+          "created_at": "2015-02-22T14:11:48-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "thanks for leaving our 3 year old in his own row flight 360 LAX-IAD",
+          "created_at": "2015-02-22T07:19:05-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "I'm not a child. I'm someone who has an issue with flying and prepares ahead of time to reduce the distress caused by planes. You",
+          "created_at": "2015-02-24T04:52:36-08:00",
+          "sentiment": "negative"
+        }
+      ],
+      "severity_score": 0.0067,
+      "rank": 4
+    },
+    {
+      "id": "fleek-fleet-fleek",
+      "label": "Fleek Fleet fleek",
+      "keywords": [
+        "fleek",
+        "fleet fleek",
+        "fleet",
+        "rt",
+        "stop",
+        "lol",
+        "lmao",
+        "yall"
+      ],
+      "volume": 169,
+      "volume_pct": 1.15,
+      "sentiment": {
+        "positive": 46.15,
+        "neutral": 33.73,
+        "negative": 20.12
+      },
+      "radar": {
+        "volume_score": 2.31,
+        "negative_score": 20.12,
+        "trend_score": 96.45,
+        "confidence_score": 78.95
+      },
+      "trend": [
+        1,
+        0,
+        1,
+        0,
+        2,
+        0,
+        2,
+        1,
+        1,
+        1,
+        5,
+        1,
+        146,
+        8
+      ],
+      "sample_complaints": [
+        {
+          "text": "\u201c: Our fleet's on fleek.",
+          "created_at": "2015-02-23T16:59:29-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "\u201c: Our fleet's on fleek.",
+          "created_at": "2015-02-23T11:15:16-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "\u201c: Our fleet's on fleek.",
+          "created_at": "2015-02-23T11:20:41-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "\u201c: Our fleet's on fleek.",
+          "created_at": "2015-02-23T12:14:40-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "\u201c: Our fleet's on fleek. no way",
+          "created_at": "2015-02-23T10:22:08-08:00",
+          "sentiment": "positive"
+        }
+      ],
+      "severity_score": 0.0046,
+      "rank": 5
+    },
+    {
+      "id": "apology-experience",
+      "label": "Apology Experience",
+      "keywords": [
+        "apology",
+        "experience",
+        "human",
+        "worst experience",
+        "speak human",
+        "way",
+        "guys",
+        "want speak"
+      ],
+      "volume": 43,
+      "volume_pct": 0.29,
+      "sentiment": {
+        "positive": 9.3,
+        "neutral": 13.95,
+        "negative": 76.74
+      },
+      "radar": {
+        "volume_score": 0.46,
+        "negative_score": 76.74,
+        "trend_score": 72.09,
+        "confidence_score": 92.99
+      },
+      "trend": [
+        0,
+        0,
+        2,
+        0,
+        4,
+        4,
+        2,
+        0,
+        2,
+        6,
+        10,
+        6,
+        2,
+        5
+      ],
+      "sample_complaints": [
+        {
+          "text": "where's my apology?",
+          "created_at": "2015-02-18T08:08:43-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "no apology? Cool.",
+          "created_at": "2015-02-21T22:19:25-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "i appreciate your apology. Sincerely. Thank you. That's really all I ever wanted to begin with.",
+          "created_at": "2015-02-22T16:59:52-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "that's not an apology. Say it.",
+          "created_at": "2015-02-21T22:37:35-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "NEVER AGAIN! Worse experience in my life.",
+          "created_at": "2015-02-20T02:54:10-08:00",
+          "sentiment": "negative"
+        }
+      ],
+      "severity_score": 0.0035,
+      "rank": 6
+    },
+    {
+      "id": "rude-staff",
+      "label": "Rude Staff",
+      "keywords": [
+        "staff",
+        "supervisor",
+        "desks",
+        "employees",
+        "team",
+        "apply",
+        "job",
+        "amazing"
+      ],
+      "volume": 59,
+      "volume_pct": 0.4,
+      "sentiment": {
+        "positive": 37.29,
+        "neutral": 15.25,
+        "negative": 47.46
+      },
+      "radar": {
+        "volume_score": 0.69,
+        "negative_score": 47.46,
+        "trend_score": 66.1,
+        "confidence_score": 93.83
+      },
+      "trend": [
+        6,
+        3,
+        2,
+        5,
+        1,
+        1,
+        2,
+        4,
+        8,
+        1,
+        13,
+        3,
+        8,
+        2
+      ],
+      "sample_complaints": [
+        {
+          "text": "I love your company and your staff is amazing. They just made an uncomfortable situation comfortable",
+          "created_at": "2015-02-22T12:14:08-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "was in a line a mile long at sky harbor this morning. Your staff was courteous and expeditious. Thank you. #onechildfourbags",
+          "created_at": "2015-02-22T09:13:41-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "one staff on desk. Now been queuing for over an hr.",
+          "created_at": "2015-02-22T19:34:27-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "ah no the staff was perfect this morning at JFK, more sleep for me!! :)",
+          "created_at": "2015-02-21T04:20:56-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "had an amazing experience with your staff at DIA last night. I was blown away by their hospitality with my wife on crutches",
+          "created_at": "2015-02-21T07:37:51-08:00",
+          "sentiment": "positive"
+        }
+      ],
+      "severity_score": 0.0033,
+      "rank": 7
+    },
+    {
+      "id": "140-characters",
+      "label": "140 Characters",
+      "keywords": [
+        "140",
+        "characters",
+        "140 characters",
+        "787",
+        "model",
+        "letter",
+        "specified",
+        "152"
+      ],
+      "volume": 53,
+      "volume_pct": 0.36,
+      "sentiment": {
+        "positive": 15.09,
+        "neutral": 37.74,
+        "negative": 47.17
+      },
+      "radar": {
+        "volume_score": 0.6,
+        "negative_score": 47.17,
+        "trend_score": 75.47,
+        "confidence_score": 86.13
+      },
+      "trend": [
+        0,
+        2,
+        1,
+        1,
+        5,
+        0,
+        4,
+        3,
+        1,
+        2,
+        9,
+        7,
+        10,
+        8
+      ],
+      "sample_complaints": [
+        {
+          "text": "719. Looks like we are about to get going, finally!",
+          "created_at": "2015-02-22T17:06:55-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "2284, four hours Late Flightrs and we are finally flying out...too bad I missed my event",
+          "created_at": "2015-02-23T22:21:04-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "3127. Just landed in LIT.",
+          "created_at": "2015-02-23T13:53:14-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "6377 and now they sent our green tagged bags to the luggage carousel. It's been one mess up after another. Bad day",
+          "created_at": "2015-02-21T19:45:37-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "It's 838. We boarded and we are waiting now to take off, hopefully.",
+          "created_at": "2015-02-23T12:03:51-08:00",
+          "sentiment": "neutral"
+        }
+      ],
+      "severity_score": 0.0028,
+      "rank": 8
+    },
+    {
+      "id": "rebooked-rebook",
+      "label": "Rebooked Rebook",
+      "keywords": [
+        "rebooked",
+        "rebook",
+        "rebooked tomorrow",
+        "married",
+        "middle",
+        "tomorrow morning",
+        "tomorrow",
+        "change"
+      ],
+      "volume": 39,
+      "volume_pct": 0.27,
+      "sentiment": {
+        "positive": 10.26,
+        "neutral": 30.77,
+        "negative": 58.97
+      },
+      "radar": {
+        "volume_score": 0.4,
+        "negative_score": 58.97,
+        "trend_score": 53.85,
+        "confidence_score": 83.07
+      },
+      "trend": [
+        3,
+        4,
+        4,
+        1,
+        4,
+        0,
+        2,
+        0,
+        4,
+        1,
+        8,
+        3,
+        1,
+        4
+      ],
+      "sample_complaints": [
+        {
+          "text": "Nope, I have not been rebooked.",
+          "created_at": "2015-02-22T20:06:14-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "Already rebooked for tomorrow. Fingers crossed!",
+          "created_at": "2015-02-17T10:18:06-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "yep, after long waiting on the phone we managed to rebook it. Hope it will be a pleasent one. Thanks for ur help.",
+          "created_at": "2015-02-18T11:28:20-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "having trouble getting rebooked",
+          "created_at": "2015-02-22T19:02:08-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "I got rebooked for tomorrow",
+          "created_at": "2015-02-17T17:40:20-08:00",
+          "sentiment": "neutral"
+        }
+      ],
+      "severity_score": 0.0023,
+      "rank": 9
+    },
+    {
+      "id": "points-pts",
+      "label": "Points Pts",
+      "keywords": [
+        "points",
+        "pts",
+        "rr",
+        "rapid",
+        "gone",
+        "account",
+        "rewards",
+        "redeem"
+      ],
+      "volume": 39,
+      "volume_pct": 0.27,
+      "sentiment": {
+        "positive": 7.69,
+        "neutral": 41.03,
+        "negative": 51.28
+      },
+      "radar": {
+        "volume_score": 0.4,
+        "negative_score": 51.28,
+        "trend_score": 58.97,
+        "confidence_score": 88.31
+      },
+      "trend": [
+        4,
+        2,
+        1,
+        0,
+        8,
+        0,
+        1,
+        2,
+        1,
+        0,
+        4,
+        3,
+        3,
+        10
+      ],
+      "sample_complaints": [
+        {
+          "text": "how come I'm not getting my points after I buy from the rapid reward shopping site?",
+          "created_at": "2015-02-24T08:33:51-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "customer service was so bad updating my points, once I use my next points, I won't be flying you. Point system is almost a sham.",
+          "created_at": "2015-02-19T07:26:10-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "thank you for the response. How can I got about getting the points onto my rewards account?",
+          "created_at": "2015-02-17T11:36:40-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "how long does it take for points from RR Shopping to post to my account? Got email saying I've earned points but don't see em",
+          "created_at": "2015-02-20T08:24:10-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "any effort to fix your points system? 11 days and a call to customer service and still no account update. Chasing points is no fun",
+          "created_at": "2015-02-23T07:12:22-08:00",
+          "sentiment": "negative"
+        }
+      ],
+      "severity_score": 0.002,
+      "rank": 10
+    },
+    {
+      "id": "dm-follow",
+      "label": "Dm Follow",
+      "keywords": [
+        "dm",
+        "follow",
+        "sent",
+        "sent dm",
+        "follow dm",
+        "just",
+        "just sent",
+        "dm follow"
+      ],
+      "volume": 157,
+      "volume_pct": 1.07,
+      "sentiment": {
+        "positive": 26.11,
+        "neutral": 64.97,
+        "negative": 8.92
+      },
+      "radar": {
+        "volume_score": 2.13,
+        "negative_score": 8.92,
+        "trend_score": 62.42,
+        "confidence_score": 83.17
+      },
+      "trend": [
+        5,
+        4,
+        10,
+        6,
+        13,
+        3,
+        18,
+        6,
+        14,
+        7,
+        16,
+        15,
+        20,
+        20
+      ],
+      "sample_complaints": [
+        {
+          "text": "can you follow me so I can send the DM?",
+          "created_at": "2015-02-21T10:57:28-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "follow/dm please",
+          "created_at": "2015-02-22T18:53:18-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "you have to follow me in order for me to DM...come on now",
+          "created_at": "2015-02-24T06:18:06-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "I believe you have to follow me in order for me send you a DM",
+          "created_at": "2015-02-17T14:04:22-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "Can you follow, so I can DM you?",
+          "created_at": "2015-02-23T15:27:17-08:00",
+          "sentiment": "neutral"
+        }
+      ],
+      "severity_score": 0.0019,
+      "rank": 11
+    },
+    {
+      "id": "positive-feedback-thank",
+      "label": "Positive Feedback (Thank)",
+      "keywords": [
+        "thank",
+        "thanks",
+        "thank thank",
+        "thanks thank",
+        "thanks thanks",
+        "thank thanks",
+        "response",
+        "sent"
+      ],
+      "volume": 321,
+      "volume_pct": 2.19,
+      "sentiment": {
+        "positive": 84.11,
+        "neutral": 11.84,
+        "negative": 4.05
+      },
+      "radar": {
+        "volume_score": 4.54,
+        "negative_score": 4.05,
+        "trend_score": 54.83,
+        "confidence_score": 83.21
+      },
+      "trend": [
+        19,
+        26,
+        23,
+        15,
+        21,
+        10,
+        31,
+        9,
+        17,
+        13,
+        27,
+        28,
+        40,
+        42
+      ],
+      "sample_complaints": [
+        {
+          "text": "Thank you!",
+          "created_at": "2015-02-17T19:33:52-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "thank you!",
+          "created_at": "2015-02-23T04:20:01-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "thank you!",
+          "created_at": "2015-02-23T06:16:24-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "thank you!",
+          "created_at": "2015-02-18T12:59:58-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "thank you!",
+          "created_at": "2015-02-23T14:06:36-08:00",
+          "sentiment": "positive"
+        }
+      ],
+      "severity_score": 0.0018,
+      "rank": 12
+    },
+    {
+      "id": "selfie-marks",
+      "label": "Selfie Marks",
+      "keywords": [
+        "selfie",
+        "marks",
+        "15th",
+        "bluemanity",
+        "year",
+        "new",
+        "15 year",
+        "paint"
+      ],
+      "volume": 30,
+      "volume_pct": 0.2,
+      "sentiment": {
+        "positive": 26.67,
+        "neutral": 60.0,
+        "negative": 13.33
+      },
+      "radar": {
+        "volume_score": 0.26,
+        "negative_score": 13.33,
+        "trend_score": 40.0,
+        "confidence_score": 84.58
+      },
+      "trend": [
+        1,
+        4,
+        4,
+        3,
+        4,
+        2,
+        0,
+        1,
+        2,
+        0,
+        4,
+        0,
+        4,
+        1
+      ],
+      "sample_complaints": [
+        {
+          "text": "Celebrates 15-Year Anniversary With New Livery - Digital Journal",
+          "created_at": "2015-02-17T21:05:05-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "unveils new 'Bluemanity' livery - USA TODAY",
+          "created_at": "2015-02-18T22:05:05-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "Thank you that it is not just a livery; it is a culture that 16,000+ crewmembers embody daily #thanksDave",
+          "created_at": "2015-02-17T11:31:33-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "Celebrates 15-Year Anniversary With New Livery -",
+          "created_at": "2015-02-18T07:36:06-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "Airways Reveals 'Bluemanity' Livery - TravelPulse",
+          "created_at": "2015-02-19T01:05:05-08:00",
+          "sentiment": "neutral"
+        }
+      ],
+      "severity_score": 0.0004,
+      "rank": 13
+    },
+    {
+      "id": "ceo-wall",
+      "label": "Ceo Wall",
+      "keywords": [
+        "ceo",
+        "wall",
+        "street",
+        "appease",
+        "passengers",
+        "jblu",
+        "airways",
+        "journal"
+      ],
+      "volume": 70,
+      "volume_pct": 0.48,
+      "sentiment": {
+        "positive": 5.71,
+        "neutral": 91.43,
+        "negative": 2.86
+      },
+      "radar": {
+        "volume_score": 0.85,
+        "negative_score": 2.86,
+        "trend_score": 22.86,
+        "confidence_score": 86.73
+      },
+      "trend": [
+        9,
+        7,
+        8,
+        4,
+        4,
+        6,
+        16,
+        5,
+        4,
+        3,
+        0,
+        1,
+        3,
+        0
+      ],
+      "sample_complaints": [
+        {
+          "text": "'s CEO battles to appease passengers and Wall Street -",
+          "created_at": "2015-02-20T05:21:06-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "'s CEO Battles to Appease Passengers and Wall Street -",
+          "created_at": "2015-02-17T09:28:07-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "'s CEO battles to appease passengers and Wall Street -",
+          "created_at": "2015-02-19T03:05:05-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "'s CEO Battles to Appease Passengers and Wall Street -",
+          "created_at": "2015-02-18T00:36:05-08:00",
+          "sentiment": "neutral"
+        },
+        {
+          "text": "'s CEO battles to appease passengers and Wall Street -",
+          "created_at": "2015-02-17T14:36:05-08:00",
+          "sentiment": "neutral"
+        }
+      ],
+      "severity_score": 0.0002,
+      "rank": 14
+    },
+    {
+      "id": "customer-service-help",
+      "label": "Customer Service (Help)",
+      "keywords": [
+        "help",
+        "cot",
+        "behavior",
+        "race",
+        "based",
+        "don think",
+        "make sure",
+        "thanks help"
+      ],
+      "volume": 12,
+      "volume_pct": 0.08,
+      "sentiment": {
+        "positive": 16.67,
+        "neutral": 25.0,
+        "negative": 58.33
+      },
+      "radar": {
+        "volume_score": 0.0,
+        "negative_score": 58.33,
+        "trend_score": 91.67,
+        "confidence_score": 89.26
+      },
+      "trend": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        3,
+        1,
+        2,
+        0,
+        0,
+        2,
+        3
+      ],
+      "sample_complaints": [
+        {
+          "text": "I don't think you should help him at all based on his behavior. The voucher and cot seem like enough lol \ud83d\ude03",
+          "created_at": "2015-02-24T11:04:41-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "I don't think you should help him at all based on his behavior. The voucher and cot seem like enough lol \ud83d\ude03",
+          "created_at": "2015-02-24T11:04:41-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "how can he try again it will be 5-6 hours before he gets help. Contingency plans non existent.",
+          "created_at": "2015-02-21T21:49:25-08:00",
+          "sentiment": "negative"
+        },
+        {
+          "text": "I'll make sure he's done that. Thanks for the help. This is a huge race for him and just trying to make sure it goes smoothly. Peace",
+          "created_at": "2015-02-20T22:39:06-08:00",
+          "sentiment": "positive"
+        },
+        {
+          "text": "any help is appreciated. That's a LOOONG wait for help on something that's not his fault",
+          "created_at": "2015-02-21T13:38:54-08:00",
+          "sentiment": "negative"
+        }
+      ],
+      "severity_score": 0.0,
+      "rank": 15
+    }
+  ]
+}
