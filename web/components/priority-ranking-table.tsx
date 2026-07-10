@@ -170,7 +170,7 @@ export function PriorityRankingTable({ categories }: Props) {
                       key={i}
                       className="pl-4 border-l-2 border-[#F2A93B]/40 text-[#F2F3F0] text-sm leading-relaxed italic"
                     >
-                      "{complaint.text}"
+                      &ldquo;{complaint.text}&rdquo;
                       <p className="text-xs text-[#878C94] font-normal not-italic mt-1">
                         {complaint.timestamp}
                       </p>

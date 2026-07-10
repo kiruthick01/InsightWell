@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { usePrefersReducedMotion } from '@/lib/use-prefers-reduced-motion'
 
 interface Complaint {
   id: string
@@ -33,13 +33,7 @@ const categoryColors = {
 }
 
 export function RecentComplaintsFeed({ complaints }: RecentComplaintsFeedProps) {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-
-  useEffect(() => {
-    setPrefersReducedMotion(
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    )
-  }, [])
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   return (
     <div className="space-y-0">
@@ -59,7 +53,7 @@ export function RecentComplaintsFeed({ complaints }: RecentComplaintsFeedProps) 
             {/* Left: Quote + Tags */}
             <div className="flex-1 min-w-0">
               <p className="text-sm text-[#F2F3F0] line-clamp-2 mb-2">
-                "{complaint.quote}"
+                &ldquo;{complaint.quote}&rdquo;
               </p>
               <div className="flex flex-wrap gap-2">
                 {/* Category tag */}

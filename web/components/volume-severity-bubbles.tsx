@@ -1,7 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useMemo, useEffect, useState } from 'react'
+import { useMemo } from 'react'
+import { usePrefersReducedMotion } from '@/lib/use-prefers-reduced-motion'
 
 interface Category {
   id: number
@@ -15,30 +16,24 @@ interface Props {
   categories: Category[]
 }
 
-export function VolumeSeverityBubbles({ categories }: Props) {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+const severityScores: Record<string, number> = {
+  critical: 90,
+  high: 70,
+  medium: 50,
+  low: 30,
+}
 
-  useEffect(() => {
-    setPrefersReducedMotion(
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    )
-  }, [])
+const severityColors: Record<string, string> = {
+  critical: '#EF4444',
+  high: '#F2A93B',
+  medium: '#35D9C6',
+  low: '#34D399',
+}
+
+export function VolumeSeverityBubbles({ categories }: Props) {
+  const prefersReducedMotion = usePrefersReducedMotion()
   const maxVolume = Math.max(...categories.map((c) => c.volume))
   const maxNegative = 100
-
-  const severityScores: Record<string, number> = {
-    critical: 90,
-    high: 70,
-    medium: 50,
-    low: 30,
-  }
-
-  const severityColors: Record<string, string> = {
-    critical: '#EF4444',
-    high: '#F2A93B',
-    medium: '#35D9C6',
-    low: '#34D399',
-  }
 
   const bubbles = useMemo(() => {
     return categories.map((cat) => ({
@@ -52,7 +47,7 @@ export function VolumeSeverityBubbles({ categories }: Props) {
       volume: cat.volume,
       negative: cat.negativePct,
     }))
-  }, [categories])
+  }, [categories, maxVolume, maxNegative])
 
   // SVG dimensions
   const svgWidth = 600

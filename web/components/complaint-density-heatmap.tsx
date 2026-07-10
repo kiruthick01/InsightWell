@@ -1,7 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useMemo, useEffect, useState } from 'react'
+import { useMemo } from 'react'
+import { usePrefersReducedMotion } from '@/lib/use-prefers-reduced-motion'
 
 interface Category {
   id: number
@@ -16,13 +17,7 @@ interface Props {
 }
 
 export function ComplaintDensityHeatmap({ categories }: Props) {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-
-  useEffect(() => {
-    setPrefersReducedMotion(
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    )
-  }, [])
+  const prefersReducedMotion = usePrefersReducedMotion()
   const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
   const heatmapData = useMemo(() => {

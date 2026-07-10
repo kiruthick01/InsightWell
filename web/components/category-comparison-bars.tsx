@@ -1,7 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useMemo, useEffect, useState } from 'react'
+import { useMemo } from 'react'
+import { usePrefersReducedMotion } from '@/lib/use-prefers-reduced-motion'
 
 interface Category {
   id: number
@@ -18,13 +19,8 @@ interface Props {
 }
 
 export function CategoryComparisonBars({ categories }: Props) {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const prefersReducedMotion = usePrefersReducedMotion()
 
-  useEffect(() => {
-    setPrefersReducedMotion(
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    )
-  }, [])
   const sortedCategories = useMemo(() => {
     const severityOrder: Record<string, number> = {
       critical: 0,

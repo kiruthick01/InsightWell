@@ -1,16 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { usePrefersReducedMotion } from '@/lib/use-prefers-reduced-motion'
 
 export function MethodologyFooter() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-
-  useEffect(() => {
-    setPrefersReducedMotion(
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    )
-  }, [])
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   return (
     <motion.section
@@ -33,7 +27,7 @@ export function MethodologyFooter() {
           <ol className="space-y-2 ml-4 list-decimal">
             <li>
               <span className="text-[#F2F3F0]">Topic Modeling</span> — Groups complaints into
-              thematic categories (e.g., "Flight Delays", "Lost Baggage") using unsupervised
+              thematic categories (e.g., &ldquo;Flight Delays&rdquo;, &ldquo;Lost Baggage&rdquo;) using unsupervised
               clustering on complaint text embeddings.
             </li>
             <li>
