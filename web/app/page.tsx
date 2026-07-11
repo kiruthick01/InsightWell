@@ -1,5 +1,6 @@
 'use client'
 
+import { Anton } from 'next/font/google'
 import { insights } from '@/lib/insights'
 import {
   toLegacyCategories,
@@ -21,6 +22,12 @@ import { VolumeSeverityBubbles } from '@/components/volume-severity-bubbles'
 import { RecentComplaintsFeed } from '@/components/recent-complaints-feed'
 import { MethodologyFooter } from '@/components/methodology-footer'
 
+// Impact isn't installed on Android/iOS/Linux (and is a licensed font we
+// can't bundle), so it silently fell back to plain sans-serif on mobile.
+// Anton is the standard free, self-hostable stand-in for Impact's bold
+// condensed look and renders identically on every platform.
+const anton = Anton({ weight: '400', subsets: ['latin'] })
+
 export default function Page() {
   const categories = toLegacyCategories(insights)
   const heroStats = toHeroStats(insights)
@@ -40,11 +47,8 @@ export default function Page() {
         {/* Header */}
         <header className="space-y-2 pt-8">
           <div
-            className="font-bold tracking-tight"
-            style={{
-              fontFamily: "'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif",
-              fontSize: "clamp(2.5rem, 10vw, 8rem)",
-            }}
+            className={`${anton.className} tracking-tight`}
+            style={{ fontSize: "clamp(2.5rem, 10vw, 8rem)" }}
           >
             Insight<span className="text-[#F2A93B]">well</span>
           </div>
